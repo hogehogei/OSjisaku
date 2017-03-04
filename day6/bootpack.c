@@ -1,15 +1,20 @@
-
 #include "bootpack.h" 
 #include "bootinfo.h"
 #include "graphic.h"
 #include "misc.h"
 #include "mouse.h"
+#include "interrupt.h"
 
 void HogeMain(void)
 {
     const BootInfo* binfo = get_bootinfo();
     int xsize = binfo->scrnx;
     int ysize = binfo->scrny;
+
+    init_gdtidt();
+    init_pic();
+    _io_sti();    // IDT/PICの初期化が終わったのでCPUの割り込み禁止を解除
+
     init_pallet();
 
     boxfill8( 0, 0, 320, 200, COLOR_BLACK );
@@ -31,16 +36,18 @@ void HogeMain(void)
     boxfill8( xsize - 47, ysize -  3, xsize -  4, ysize -  3, COLOR_WHITE );
     boxfill8( xsize -  3, ysize - 24, xsize -  3, ysize -  3, COLOR_WHITE );
 
-    Point p;
-    p = putstr8( 8, 8, COLOR_WHITE, "HOGEHOGE\n" );
-    p = putstr8( p.x, p.y, COLOR_WHITE, dec2str(-2147483647) );
+    //Point p;
+    //p = putstr8( 8, 8, COLOR_WHITE, "HOGEHOGE\n" );
+    //p = putstr8( p.x, p.y, COLOR_WHITE, dec2str(-2147483647) );
 
     uint8_t cursor[16*16];
     create_mouse_cursor_bitmap( cursor, COLOR_DEEP_BLUE );
     draw_cursor( 160, 100, cursor );
 
+    _io_out8( PIC0_IMR, 0xF9 );    // PIC1とキーボードを許可 11111001
+    _io_out8( PIC1_IMR, 0xEF );    // マウスを許可 11101111
+
     while(1){
         _io_hlt();
     }
 }
-

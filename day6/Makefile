@@ -1,7 +1,7 @@
 
 OSNAME=hogeios
 IMG=$(OSNAME).img
-APPOBJ=bootpack.o bootinfo.o graphic.o hankaku.o misc.o mouse.o dsctbl.o
+APPOBJ=bootpack.o bootinfo.o graphic.o hankaku.o misc.o mouse.o dsctbl.o interrupt.o
 CCOPT=-O0 -m32 -nostdlib -Wl,--oformat=binary
 ASOPT=--32
 

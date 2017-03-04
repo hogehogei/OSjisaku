@@ -1,4 +1,3 @@
-
 #include "mouse.h"
 #include "graphic.h"
 
@@ -44,4 +43,3 @@ void create_mouse_cursor_bitmap( uint8_t* cursor_dst, uint8_t bg_color )
 
     return;
 }
-

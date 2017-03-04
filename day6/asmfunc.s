@@ -9,6 +9,9 @@
 .global _io_out8, _io_out16, _io_out32
 .global _io_load_eflags, _io_store_eflags
 .global	_load_gdtr, _load_idtr
+.global _asm_inthandler21, _asm_inthandler2c
+
+.extern	_inthandler21_keyboard, _inthandler2c_mouse
 
 .text 
 
@@ -87,3 +90,36 @@ _load_idtr:	# void load_idtr( int limit, int addr );
 	lidt	6(%esp)
 	ret
 
+// Keyboard 入力割り込み処理
+_asm_inthandler21:
+	pushw	%es
+	pushw	%ds
+	pusha	
+	movl	%esp, %eax
+	pushl	%eax
+	movw	%ss, %ax
+	movw	%ax, %ds
+	movw	%ax, %es
+	call	_inthandler21_keyboard
+	popl	%eax
+	popa
+	popw	%ds
+	popw	%es
+	iret
+	
+// mouse 入力割り込み処理
+_asm_inthandler2c:
+	pushw	%es
+	pushw	%ds
+	pusha	
+	movl	%esp, %eax
+	pushl	%eax
+	movw	%ss, %ax
+	movw	%ax, %ds
+	movw	%ax, %es
+	call	_inthandler2c_mouse
+	popl	%eax
+	popa
+	popw	%ds
+	popw	%es
+	iret

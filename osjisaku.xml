@@ -1,4 +1,4 @@
-<domain type='kvm'>
+<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>osjisaku</name>
   <uuid>2553aa29-b010-48fc-9854-f875e64df1a8</uuid>
   <memory unit='KiB'>128000</memory>
@@ -23,7 +23,7 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='floppy'>
       <driver name='qemu' type='raw'/>
-      <source file='/home/ryo/OSJisaku/hogeios.img'/>
+      <source file='/home/ryo/program/OSJisaku/hogeios.img'/>
       <target dev='fda' bus='fdc'/>
       <readonly/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
@@ -47,5 +47,10 @@
     </memballoon>
   </devices>
   <seclabel type='none' model='none'/>
+  <qemu:commandline>
+    <qemu:arg value='-gdb'/>
+    <qemu:arg value='tcp::10000'/>
+    <qemu:arg value='-S'/>
+  </qemu:commandline>
 </domain>
 
