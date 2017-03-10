@@ -1,0 +1,8 @@
+target remote localhost:10000
+set architecture i8086
+b *0x7c00
+b *0x7c50
+b *0xc2dd
+b *0xc26a
+b *0xc2f2
+
