@@ -10,7 +10,7 @@ qemuも64ビット版ですが32ビットも動作します。
 エミュレータは virsh 経由で動かすようにしています。付属の osjisaku.xml を参考にしてみてください。
 下記コマンドでエミュレータを起動できると思います。
 
-$ virsh define osjisaku.xml
-$ virsh edit osjisaku
+virsh define osjisaku.xml
+virsh edit osjisaku
 /// 環境に応じて編集 ///
-$ virsh start osjisaku
+virsh start osjisaku
