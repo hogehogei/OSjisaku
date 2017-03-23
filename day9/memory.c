@@ -96,7 +96,7 @@ void* mem_alloc( uint32_t size )
 
     do { 
         if( !hdr->used && hdr->size >= size ){
-            if( hdr->size >= MEMORY_MIN_ALLOC*2 + MEMORY_HDR_OVERHEAD ){
+            if( hdr->size >= size + MEMORY_MIN_ALLOC + MEMORY_HDR_OVERHEAD ){
                 hdr = mem_split( hdr, size );
             }
             hdr->used = 1;

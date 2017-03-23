@@ -1,0 +1,38 @@
+#ifndef    GRAPHIC_H_INCLUDED
+#define    GRAPHIC_H_INCLUDED
+
+#include "type.h" 
+#include "misc.h"
+#include "sheet.h"
+
+enum VGAPalletColor    // 0 - 15 16色
+{
+    COLOR_BLACK = 0, 
+    COLOR_RED,
+    COLOR_GREEN,
+    COLOR_YELLOW,
+    COLOR_BLUE,
+    COLOR_PURPLE,
+    COLOR_LIGHT_BLUE,
+    COLOR_WHITE,
+    COLOR_LIGHT_GRAY,
+    COLOR_DARK_RED,
+    COLOR_DARK_GREEN,
+    COLOR_DARK_YELLOW,
+    COLOR_DARK_BLUE,
+    COLOR_DARK_PURPLE,
+    COLOR_DEEP_BLUE,
+    COLOR_DARK_GRAY,
+
+    COLOR_INVISIBLE = 99
+};
+
+void init_pallet(void);
+void boxfill8( Sheet* sht, int x0, int y0, int x1, int y1, uint8_t color );
+void putfont8( Sheet* sht, int x0, int y0, uint8_t color, uint8_t bg_color, uint8_t ch );
+Point putstr8( Sheet* sht, int x0, int y0, uint8_t color, uint8_t bg_color, const uint8_t* s );
+
+void draw_cursor( int x0, int y0, const uint8_t* cursor );
+void init_screen( Sheet* sht );
+
+#endif
